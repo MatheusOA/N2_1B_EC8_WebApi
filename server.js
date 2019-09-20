@@ -32,13 +32,32 @@ if (ambiente === 'development'){
 // Essa configuração na API indica que haverá JWT para cada endpoint / rota método, com exceção dos métodos
 // de autenticação e registro de usuários. Essa camada de segurança é muito boa, porque ajuda
 // na diminuição do tratamento de mensagens indevidas na aplicação
-api.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
+
+
+// DESCOMENTAR ESSA LINHA!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//api.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/users/authenticate', '/api/users/register'] }));
 
 // Aqui o mapemanto das rotas da aplicação. Todos esses mapeamentos fazem parte da aplicação
 // A cada require, o js é inicializado
 api.use('/api/users', require('./controllers/api/users.controller'));
+api.use('/api/roupas', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/teste', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/getRoupa', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/createRoupa', require('./controllers/api/roupas.controller'));
+
+
 
 // start server API
 var serverAPI = api.listen(apiPort, function () {
     console.log('Server API listening at http://' + serverAPI.address().address + ':' + serverAPI.address().port);
+});
+
+
+api.get('/teste', function(req, res){
+    console.log('Recebida!');
+    res.send('OK');
 });
