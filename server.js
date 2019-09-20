@@ -22,7 +22,6 @@ var ambiente = process.env.NODE_ENV || 'development';
 // uso do JWT para garantir a segurança da API e o uso de json no body para transferir dados de uma camada para a outra 
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(bodyParser.json());
-api.use(bodyParser());
 
 // Definição do CORS para permitir acesso externo
 // Isso tem que acontecer antes da criação das rotas
@@ -49,6 +48,8 @@ api.use('/api/roupas', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/teste', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/getRoupa', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/createRoupa', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/updateRoupa', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/deleteRoupa', require('./controllers/api/roupas.controller'));
 
 
 

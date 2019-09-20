@@ -5,7 +5,10 @@ var roupasService = require('services/roupas.service');
 
 // routes
 router.post('/createRoupa', createRoupa);
+router.post('/deleteRoupa', deleteRoupa);
+router.post('/updateRoupa', updateRoupa);
 router.get('/getRoupa', getCurrentRoupa);
+router.get('/getAllRoupas', getAllRoupas);
 router.get('/teste', teste);
 
 module.exports = router;
@@ -25,7 +28,7 @@ function createRoupa(req, res) {
 }
 
 function getCurrentRoupa(req, res) {
-    console.log(req.query);
+    
     roupasService.getById(req.query._id)
         .then(function (roupa) {
             if (roupa) {    
@@ -33,6 +36,43 @@ function getCurrentRoupa(req, res) {
             } else {
                 res.sendStatus(404);
             }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function getAllRoupas(req, res) {
+    roupasService.getAll()
+        .then(function (roupa) {
+            if (roupa) {    
+                res.send(roupa);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function updateRoupa(req, res) {
+    roupasService.update(req.query._id, req.body)
+        .then(function () {
+            var roupa = req.body;
+            roupa.status = 'ATUALIZADO';
+            res.send(roupa);
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function deleteRoupa(req, res) {
+    roupasService.delete(req.query._id)
+        .then(function () {
+            res.sendStatus(200);
         })
         .catch(function (err) {
             res.status(400).send(err);
