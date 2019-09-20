@@ -20,6 +20,7 @@ function getById(_id) {
     var deferred = Q.defer();
 
     db.roupas.findById(_id, function (err, roupa) {
+        
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (roupa) {

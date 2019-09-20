@@ -25,9 +25,10 @@ function createRoupa(req, res) {
 }
 
 function getCurrentRoupa(req, res) {
-    roupasService.getById(req.params._id)
+    console.log(req.query);
+    roupasService.getById(req.query._id)
         .then(function (roupa) {
-            if (roupa) {
+            if (roupa) {    
                 res.send(roupa);
             } else {
                 res.sendStatus(404);
@@ -39,6 +40,6 @@ function getCurrentRoupa(req, res) {
 }
 
 function teste(req, res){
-    console.log('Recebida com sucesso NA PORTA 9050!');
+    console.log('Recebido com sucesso NA PORTA 9050!');
     res.send('OK');
 }
