@@ -44,9 +44,9 @@ function getCurrentRoupa(req, res) {
 
 function getAllRoupas(req, res) {
     roupasService.getAll()
-        .then(function (roupa) {
-            if (roupa) {    
-                res.send(roupa);
+        .then(function (roupas) {
+            if (roupas) {    
+                res.send(roupas);
             } else {
                 res.sendStatus(404);
             }

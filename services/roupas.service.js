@@ -19,7 +19,6 @@ module.exports = service;
 
 function getById(_id) {
     var deferred = Q.defer();
-
     db.roupas.findById(_id, function (err, roupa) {
         
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -38,10 +37,13 @@ function getById(_id) {
 
 function getAll() {
     var deferred = Q.defer();
-    var teste = db.roupas.find();
+    var teste = db.collection("roupas").find({}).toArray(function(err,result){
+        if (err) throw err;
+        console.log(result);        
+    });
     console.log(teste);
 
-    db.roupas.find(function (err, roupa) {
+    db.collection("roupas").find({}).toArray(function (err, roupa) {
         
         if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -59,12 +61,13 @@ function getAll() {
 
 function create(roupaParam) {
     var deferred = Q.defer();
-
     // validation
+    roupaParam.valorMargem = roupaParam.valorPagoCompra*2;
+    roupaParam.valorMargem = roupaParam.valorMargem.toString();
     db.roupas.findOne(
         { codigoItem: roupaParam.codigoItem },
         function (err, roupa) {
-            if (roupa.codigoItem) {
+            if (roupa) {
                 // Code already exists
                 deferred.reject('The code "' + roupaParam.codigoItem + '" is already taken');
             } else {
@@ -96,7 +99,9 @@ function update(_id, roupaParam) {
         if (err) deferred.reject(err.name + ': ' + err.message);
         else updateRoupa();        
     });
-    console.log(roupaParam);
+    
+    roupaParam.valorMargem = roupaParam.valorPagoCompra*2;
+    roupaParam.valorMargem = roupaParam.valorMargem.toString();
 
     function updateRoupa() {
         // fields to update
@@ -109,7 +114,7 @@ function update(_id, roupaParam) {
             valorEtiquetaCompra: roupaParam.valorEtiquetaCompra,
             valorPagoCompra: roupaParam.valorPagoCompra,
             valorMargem: roupaParam.valorMargem,
-            preçoSugerido: roupaParam.preçoSugerido
+            precoSugerido: roupaParam.precoSugerido
         };
 
         db.roupas.update(

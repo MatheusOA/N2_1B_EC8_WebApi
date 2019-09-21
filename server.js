@@ -47,6 +47,7 @@ api.use('/api/users', require('./controllers/api/users.controller'));
 api.use('/api/roupas', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/teste', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/getRoupa', require('./controllers/api/roupas.controller'));
+api.use('/api/roupas/getAllRoupas', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/createRoupa', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/updateRoupa', require('./controllers/api/roupas.controller'));
 api.use('/api/roupas/deleteRoupa', require('./controllers/api/roupas.controller'));
